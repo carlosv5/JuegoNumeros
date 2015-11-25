@@ -33,8 +33,13 @@ while jugando:
 	if(jugando):
      		print "Resumen:"
      		print "Te quedan",numero_intentos,"intentos"
-	     	for x in array:
+		for x in array:
 	        	print x
+		if(0.3 * random.randrange(1.0,10.0) < 1.0):
+			pista = raw_input("Quieres una pista(y/n): ")
+			if(pista == "y"):
+				print("El numero que buscas esta entre " + str(r-random.randrange(0,numero_intentos*10)) + " y " + str(random.randrange(0,numero_intentos*10)+r))
+	     
 	else:
 		print "Te quedaban solo", numero_intentos,"intentos"
 		print "El numero era", r
