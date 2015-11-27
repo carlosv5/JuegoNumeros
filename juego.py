@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import random
 import math
+import re
 
 #Class getch - Gets a single character from standard input.  Does not echo to the screen(Unix and Windows)
 class _Getch:
@@ -38,6 +39,7 @@ print "Bienvenido al juego"
 salir = False
 misPuntos = 0
 maqPuntos = 0
+
 while(not salir):
 	print("Quieres crear tu propia partida?(y/n)")
 	propia = getch()
@@ -57,7 +59,7 @@ while(not salir):
 
 		else:
 		    rangoMaximo = 100
-		    rangoMinimo = 1
+		    rangoMinimo = 0
 		for x in range (1,20):
 		    if(math.pow(2,x) > rangoMaximo):
 			numero_intentos = x-1
@@ -73,8 +75,12 @@ while(not salir):
 			continue
 		print "Intente adivinar el numero entre " + str(rangoMinimo) + " y " + str(rangoMaximo)
 		array=[]
+		resumenMenor=[]
+		resumenMayor=[]
 		print "Tienes",numero_intentos,"intentos"
 		jugando = True
+		minimo = rangoMinimo
+		maximo = rangoMaximo
 		break
 	while jugando:
 
@@ -93,11 +99,11 @@ while(not salir):
 			continue
 		elif(intento > number):
 			print "El numero es menor"
-			array.append("El numero es MENOR que " + str(intento))
+			array.append("MENOR que " + str(intento))
 			numero_intentos = numero_intentos-1
 		elif(intento< number):
 			print "El numero es mayor"
-			array.append("El numero es MAYOR que " + str(intento))
+			array.append("MAYOR que " + str(intento))
 			numero_intentos = numero_intentos-1
 		elif(intento == number):
 			premio = 1
@@ -113,21 +119,50 @@ while(not salir):
 	     		print "|Te quedan",numero_intentos,"intentos|"
 
 			for x in array:
-				print "|" + x + "|"
+				mo = re.match("(MAYOR|MENOR)\s+que\s+(\d+)",x)
+				if(mo.group(1) == "MENOR"):
+					valor = mo.group(2)
+					if(valor not in resumenMenor):
+						resumenMenor.append(valor)
+						for y in resumenMenor:
+							if(int(y) < int(maximo)):
+								maximo = y
+					#coger el numero a un array de mayores y coger el menor
+
+				else:
+					valor = mo.group(2)
+					if(valor not in resumenMayor):
+						resumenMayor.append(valor)
+						for y in resumenMayor:
+							if(int(y) > int(minimo)):
+								minimo = y
+					#coger el numero a un array de menores y coger el mayor
+				#sacar los dos valores
+			print ("MAYOR que " + str(minimo) + ", MENOR que " + str(maximo))
 			#Condicion antigua 
-			if(0.3 * random.randrange(1.0,10.0) < 1.0):
+			#if(0.3 * random.randrange(1.0,10.0) < 1.0):
 			#Condicion a poner 
-			#if(math.fabs(number - intento) > (rangoMaximo-rangoMinimo)/(numero_intentos-(numero_int_inicial-1)):
+			if(math.fabs(number - intento) > (rangoMaximo-rangoMinimo)/(numero_intentos-(numero_int_inicial-numero_intentos-1))):
+				
+				#PISTAS				
 				print(" Quieres una pista?(y/n)")
 				pista = getch()
 				if(pista == "y"):
 					limiteInferior = number-random.randrange(0,numero_intentos*factorPista)
 					limiteSuperior = random.randrange(0,numero_intentos*factorPista)+number
+					if(random.randrange(0,10) > 0.5):
+						array.append("|MAYOR que " + str(limiteInferior) +"|")
+						print("|MAYOR que " + str(limiteInferior))
+					else:
+						array.append("|MENOR que " + str(limiteSuperior) + "|")
+						print("|MAYOR que " + str(limiteSuperior))
+
+					#Tratamiento de valores menores que rangoMinimo y mayores que rangoMaximo
 					if(limiteInferior < rangoMinimo):
 						limiteInferior = rangoMinimo
 					if(limiteSuperior > rangoMaximo):
 						limiteSuperior = rangoMaximo
-					print("|El numero que buscas esta entre " + str(limiteInferior) + " y " + str(limiteSuperior)+"|")
+
 					numero_intentos -= 1
 					print("Se te resta 1 intento, te quedan " + str(numero_intentos) + " intentos")
 		     			if(numero_intentos < 1):
