@@ -71,7 +71,7 @@ while(not salir):
 		try:
 			number = random.randrange(rangoMinimo,rangoMaximo)
 		except ValueError:
-			print("->Error: Tiene que ser un numero entero")
+			print("->Error: Numeros mal introducidos")
 			continue
 		print "Intente adivinar el numero entre " + str(rangoMinimo) + " y " + str(rangoMaximo)
 		array=[]
@@ -98,11 +98,11 @@ while(not salir):
 		        print "El rango es de",rangoMinimo,"a",rangoMaximo
 			continue
 		elif(intento > number):
-			print "El numero es menor"
+			#print "El numero es menor"
 			array.append("MENOR que " + str(intento))
 			numero_intentos = numero_intentos-1
 		elif(intento< number):
-			print "El numero es mayor"
+			#print "El numero es mayor"
 			array.append("MAYOR que " + str(intento))
 			numero_intentos = numero_intentos-1
 		elif(intento == number):
@@ -138,35 +138,35 @@ while(not salir):
 								minimo = y
 					#coger el numero a un array de menores y coger el mayor
 				#sacar los dos valores
-			print ("MAYOR que " + str(minimo) + ", MENOR que " + str(maximo))
+			print ("|MAYOR que " + str(minimo) + ", MENOR que " + str(maximo) + " |")
 			#Condicion antigua 
 			#if(0.3 * random.randrange(1.0,10.0) < 1.0):
 			#Condicion a poner 
-			if(math.fabs(number - intento) > (rangoMaximo-rangoMinimo)/(numero_intentos-(numero_int_inicial-numero_intentos-1))):
+			#if(math.fabs(number - intento) > (rangoMaximo-rangoMinimo)/(numero_intentos-(numero_int_inicial-numero_intentos-1))):
 				
 				#PISTAS				
-				print(" Quieres una pista?(y/n)")
-				pista = getch()
-				if(pista == "y"):
-					limiteInferior = number-random.randrange(0,numero_intentos*factorPista)
-					limiteSuperior = random.randrange(0,numero_intentos*factorPista)+number
-					if(random.randrange(0,10) > 0.5):
-						array.append("|MAYOR que " + str(limiteInferior) +"|")
-						print("|MAYOR que " + str(limiteInferior))
-					else:
-						array.append("|MENOR que " + str(limiteSuperior) + "|")
-						print("|MAYOR que " + str(limiteSuperior))
+				#print(" Quieres una pista?(y/n)")
+				#pista = getch()
+				#if(pista == "y"):
+				#	limiteInferior = number-random.randrange(0,numero_intentos*factorPista)
+				#	limiteSuperior = random.randrange(0,numero_intentos*factorPista)+number
+				#	if(random.randrange(0,10) > 0.5):
+				#		array.append("|MAYOR que " + str(limiteInferior) +"|")
+				#		print("|MAYOR que " + str(limiteInferior))
+				#	else:
+				#		array.append("|MENOR que " + str(limiteSuperior) + "|")
+				#		print("|MAYOR que " + str(limiteSuperior))
 
 					#Tratamiento de valores menores que rangoMinimo y mayores que rangoMaximo
-					if(limiteInferior < rangoMinimo):
-						limiteInferior = rangoMinimo
-					if(limiteSuperior > rangoMaximo):
-						limiteSuperior = rangoMaximo
+				#	if(limiteInferior < rangoMinimo):
+				#		limiteInferior = rangoMinimo
+				#	if(limiteSuperior > rangoMaximo):
+				#		limiteSuperior = rangoMaximo
 
-					numero_intentos -= 1
-					print("Se te resta 1 intento, te quedan " + str(numero_intentos) + " intentos")
-		     			if(numero_intentos < 1):
-		    				jugando = False
+				#	numero_intentos -= 1
+				#	print("Se te resta 1 intento, te quedan " + str(numero_intentos) + " intentos")
+		     		#	if(numero_intentos < 1):
+		    		#		jugando = False
 		if(not jugando):
 		    if(numero_intentos != 0):
 			       print "Te quedaban solo", numero_intentos,"intentos"
