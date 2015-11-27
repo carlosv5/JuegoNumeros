@@ -46,11 +46,13 @@ while(not salir):
 			try:
 				rangoMaximo = input("Introduce el numero maximo: ")
 				rangoMinimo = input("Introduce el mumero minimo: ")
+				if(rangoMaximo < 0 or rangoMinimo < 0):
+					raise NameError
 			except NameError:
-				print "Numero no valido"
+				print "-->Error: Numero(s) no valido(s)"
 				continue
 			except SyntaxError:
-				print "Numero no introducido"
+				print "-->Error: Numero(s) no introducido(s)"
 				continue
 
 		else:
@@ -62,12 +64,12 @@ while(not salir):
 			break
 		    else:
 			numero_intentos = x
-		print "Intente adivinar el numero entre " + str(rangoMinimo) + " y " + str(rangoMaximo)
 		try:
 			number = random.randrange(rangoMinimo,rangoMaximo)
 		except ValueError:
-			print("Tiene que ser un numero entero")
+			print("->Error: Tiene que ser un numero entero")
 			continue
+		print "Intente adivinar el numero entre " + str(rangoMinimo) + " y " + str(rangoMaximo)
 		array=[]
 		print "Tienes",numero_intentos,"intentos"
 		jugando = True
@@ -77,10 +79,10 @@ while(not salir):
 		try:
 			intento = int(raw_input("Numero: "))
 		except SyntaxError:
-			print "Numero no introducido"
+			print "->Error: Numero no introducido"
 			continue
 		except ValueError:
-			print "Numero no introducido"
+			print "->Error: Numero no introducido"
 			continue
 
 		if((intento< rangoMinimo)or(intento > rangoMaximo)):
@@ -105,16 +107,16 @@ while(not salir):
 		    jugando = False
 
 		if(jugando):
-	     		print "Resumen:"
-	     		print "Te quedan",numero_intentos,"intentos"
+	     		print "-------Resumen:-------"
+	     		print "|Te quedan",numero_intentos,"intentos|"
 
 			for x in array:
-				print x
+				print "|" + x + "|"
 			if(0.3 * random.randrange(1.0,10.0) < 1.0):
 				print(" Quieres una pista?(y/n)")
 				pista = getch()
 				if(pista == "y"):
-					print("El numero que buscas esta entre " + str(number-random.randrange(0,numero_intentos*5)) + " y " + str(random.randrange(0,numero_intentos*5)+number))
+					print("|El numero que buscas esta entre " + str(number-random.randrange(0,numero_intentos*5)) + " y " + str(random.randrange(0,numero_intentos*5)+number)+"|")
 					numero_intentos -= 1
 					print("Se te resta 1 intento, te quedan " + str(numero_intentos) + " intentos")
 		     			if(numero_intentos < 1):
