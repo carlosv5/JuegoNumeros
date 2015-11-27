@@ -64,6 +64,8 @@ while(not salir):
 			break
 		    else:
 			numero_intentos = x
+			numero_int_inicial = x
+		factorPista = int(pow(2,x))/10
 		try:
 			number = random.randrange(rangoMinimo,rangoMaximo)
 		except ValueError:
@@ -91,11 +93,11 @@ while(not salir):
 			continue
 		elif(intento > number):
 			print "El numero es menor"
-			array.append("El numero es menor que " + str(intento))
+			array.append("El numero es MENOR que " + str(intento))
 			numero_intentos = numero_intentos-1
 		elif(intento< number):
 			print "El numero es mayor"
-			array.append("El numero es mayor que " + str(intento))
+			array.append("El numero es MAYOR que " + str(intento))
 			numero_intentos = numero_intentos-1
 		elif(intento == number):
 			premio = 1
@@ -112,11 +114,20 @@ while(not salir):
 
 			for x in array:
 				print "|" + x + "|"
+			#Condicion antigua 
 			if(0.3 * random.randrange(1.0,10.0) < 1.0):
+			#Condicion a poner 
+			#if(math.fabs(number - intento) > (rangoMaximo-rangoMinimo)/(numero_intentos-(numero_int_inicial-1)):
 				print(" Quieres una pista?(y/n)")
 				pista = getch()
 				if(pista == "y"):
-					print("|El numero que buscas esta entre " + str(number-random.randrange(0,numero_intentos*5)) + " y " + str(random.randrange(0,numero_intentos*5)+number)+"|")
+					limiteInferior = number-random.randrange(0,numero_intentos*factorPista)
+					limiteSuperior = random.randrange(0,numero_intentos*factorPista)+number
+					if(limiteInferior < rangoMinimo):
+						limiteInferior = rangoMinimo
+					if(limiteSuperior > rangoMaximo):
+						limiteSuperior = rangoMaximo
+					print("|El numero que buscas esta entre " + str(limiteInferior) + " y " + str(limiteSuperior)+"|")
 					numero_intentos -= 1
 					print("Se te resta 1 intento, te quedan " + str(numero_intentos) + " intentos")
 		     			if(numero_intentos < 1):
