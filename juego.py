@@ -61,7 +61,7 @@ while(not salir):
 			numero_intentos = x-1
 			break
 		    else:
-			numero_intentos = x  	    
+			numero_intentos = x
 		print "Intente adivinar el numero entre " + str(rangoMinimo) + " y " + str(rangoMaximo)
 		try:
 			number = random.randrange(rangoMinimo,rangoMaximo)
@@ -73,7 +73,7 @@ while(not salir):
 		jugando = True
 		break
 	while jugando:
-	
+
 		try:
 			intento = int(raw_input("Numero: "))
 		except SyntaxError:
@@ -97,9 +97,10 @@ while(not salir):
 			numero_intentos = numero_intentos-1
 		elif(intento == number):
 			premio = 1
+			misPuntos +=1
 			print "Enhorabuena!, has ganado " + str(premio) + " punto"
 			jugando = False
-			
+
 		if(numero_intentos < 1):
 		    jugando = False
 
@@ -126,15 +127,17 @@ while(not salir):
 			maqPuntos += 1
 		    print "El numero era", number
 	print("Llevas " + str(misPuntos) +" puntos y la maquina lleva " + str(maqPuntos) + " puntos")
-	
+
 	print("Quieres jugar otra vez?(y/n)")
 	varSalir = getch()
 	if(varSalir == "y"):
 		salir = False
 	else:
 		salir = True
-		
+
 if(misPuntos > maqPuntos):
 	print("Has ganado a la maquina")
+elif(misPuntos == maqPuntos):
+ print("Has empatado")
 else:
 	print("La maquina ha conseguido mas puntos que tu")
